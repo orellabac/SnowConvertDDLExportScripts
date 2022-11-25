@@ -29,6 +29,53 @@ The script uses the following parameters.  The script will prompt the user for a
 * **ExistingDirectoryAction**: Specifies whether to delete or keep the existing **ScriptDirectory** (default is to prompt interactively)
 * **NoSysAdminAction**: Specifies whether to stop or continue should the authenticated **UserName** not have the sysadmin role on **ServerName**\\**InstanceName** (default is to prompt interactively)
 
+## Troubleshooting
+
+### What to if I need to run the scripts on a machine with no Internet Access ?
+
+The extraction scripts will try to install a PowerShell module for SQLServer. If the machine does not have access to internet this operation might fail.
+
+One option can be to download this module and install it manually.
+
+You can follow these steps:
+
+1. Run powershell
+2. Create a folder for example c:\temp
+3. Run `Invoke-WebRequest -Uri powershellgallery.com/api/v2/package/sqlserver -Out D:\temp\sqlserver.zip`
+4. Now we need to extract the module into a path that Powershell can use to load the modules. For that purpose we can run 
+```
+PS C:\> echo $env:PSModulePath.Split(";")
+C:\Users\username\Documents\WindowsPowerShell\Modules
+C:\Program Files (x86)\WindowsPowerShell\Modules
+C:\Program Files\WindowsPowerShell\Modules
+```
+As you can see the output will print a list of folder where powershell lists the modules. 
+You can select one of the folder like this:
+```
+PS C:\> echo $env:PSModulePath.Split(";")[0]
+C:\Users\username\Documents\WindowsPowerShell\Modules
+```
+Create a target folder:
+```
+PS C:\> mkdir ($env:PSModulePath.Split(";")[0] + "\SqlServer")
+```
+
+And extract the module like:
+```
+PS C:\> Expand-Archive -Path C:\temp\sqlserver.zip -DestinationPath ($env:PSModulePath.Split(";")[0] + "\SqlServer")
+```
+
+5. Install it like:
+```
+PS C:\> Install-Module -Name SqlServer -Scope CurrentUser
+
+Untrusted repository
+You are installing the modules from an untrusted repository. If you trust this repository, change its
+InstallationPolicy value by running the Set-PSRepository cmdlet. Are you sure you want to install the modules from
+'PSGallery'?
+[Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help (default is "N"): A
+```
+
 ## Additional Help
 
 For more information on using the script, execute the following:
