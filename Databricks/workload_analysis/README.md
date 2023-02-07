@@ -1,7 +1,7 @@
 # Databricks Workload Query notebook
 
 ## Overview
-The following notebook [Databricks_workload_query.dbc](https://github.com/MobilizeNet/SnowConvertDDLExportScripts/tree/main.Databricks_workload_query.dbc) allows you to share information about your Databricks workspace workload without giving direct access to your system.
+The following notebook [Databricks_workload_query.dbc](https://github.com/MobilizeNet/SnowConvertDDLExportScripts/blob/main/Databricks/workload_analysis/Databricks_workload_query.dbc) allows you to share information about your Databricks workspace workload without giving direct access to your system.
 
 ## How it works
 - This notebook uses standard Databricks python API to gather minimal clusters, jobs, tasks, and runs information. 
@@ -14,7 +14,7 @@ The following notebook [Databricks_workload_query.dbc](https://github.com/Mobili
 ## Steps
 1. Open your Databricks workspace and creates an new notebook.
 2. Open File menu and click import.
-3. Select URL and paste ***https://github.com/MobilizeNet/SnowConvertDDLExportScripts/tree/main.Databricks_workload_query.dbc***
+3. Select URL and paste ***https://github.com/MobilizeNet/SnowConvertDDLExportScripts/blob/main/Databricks/workload_analysis/Databricks_workload_query.dbc***
 4. Follow notebook instructions.
    1. Install Databricks pypi dependency.
    2. Update configuration accordling with your cluster (host_url, and token). ***We Advise against using the token directly in the notebook. Please store it in a secret scope, using Databricks CLI***.  For more details [Databricks Authentication](https://docs.databricks.com/dev-tools/api/latest/authentication.html)
